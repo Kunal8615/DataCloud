@@ -67,7 +67,15 @@ UserSchema.methods.generateAccessToken = function() {
     }
 
     const token = jwt.sign(payload,process.env.ACCESS_TOKEN_SECRET,{exprireIn : "1d"})
+    return token;
 }
 
+userschema.methods.generateRefreshToken = async function() {
+    const payload = {
+        _id: this._id
+    };
+    const token = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '10d' });
+    return token;
+};
 const User = mongoose.model("User",UserSchema);
 export default User;
