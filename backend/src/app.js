@@ -1,7 +1,7 @@
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
-
+import userRoute from "../src/routes/user.route.js"
 const app = express()
 
 
@@ -23,4 +23,7 @@ app.get("/", (req, res) => {
     res.send("Welcome to the DataCloud API! Use the available routes to interact with the platform.");
   });
 
+  //routes
+
+  app.use("/api/v2/users",userRoute);
   export { app };

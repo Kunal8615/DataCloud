@@ -1,5 +1,5 @@
 import User from "../models/user.model.js"
-import {Apierror }from "../routes/api/Apierror.js"
+import {Apierror }from "../utils/Apierror.js"
 import {asynchandler} from "../utils/Asynchander.js"
 
 const Verifyjwt = asynchandler(async (req,_,next)=>{
@@ -26,4 +26,4 @@ const Verifyjwt = asynchandler(async (req,_,next)=>{
         throw new Apierror(401, error?.message || "Invalid access token");
     }
 })
-export default verifyJWT;
+export default Verifyjwt;
