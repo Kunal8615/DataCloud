@@ -66,7 +66,7 @@ UserSchema.methods.generateAccessToken = function() {
         fullname:this.fullname
     }
 
-    const token = jwt.sign(payload,process.env.ACCESS_TOKEN_SECRET,{exprireIn : "1d"})
+    const token = jwt.sign(payload,process.env.ACCESS_TOKEN_SECRET,{expiresIn : "1d"})
     return token;
 }
 
@@ -74,7 +74,7 @@ UserSchema.methods.generateRefreshToken = async function() {
     const payload = {
         _id: this._id
     };
-    const token = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '10d' });
+    const token = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET,{expiresIn : '10d' });
     return token;
 };
 const User = mongoose.model("User",UserSchema);

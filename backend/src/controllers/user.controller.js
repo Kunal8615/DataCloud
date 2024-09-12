@@ -8,6 +8,29 @@ import jwt, { decode } from "jsonwebtoken"
 import mongoose, { mongo } from "mongoose";
 
 
+
+const GenerateAccessAndRefreshTokens = async (userId) => {
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            throw new Apierror(404, "User not found");
+        }
+
+        const accessToken = await user.generateAccessToken();
+        const refreshToken = await user.generateRefreshToken();
+
+        // Save refresh token in database
+        user.refreshToken = refreshToken;
+        await user.save({ validateBeforeSave: false });
+
+        return { accessToken, refreshToken };
+    } catch (error) {
+        console.error("Error generating tokens:", error);  // Error details ko log karo
+        throw new Apierror(500, error.message || "something went wrong while generating tokens");
+    }
+};
+
+
 const RegisterUser = asynchandler(async (req,res)=>{
     const {fullname,email,username,password} = req.body;
     if ([fullname, email, username, password].some(field => !field || field.trim() === "")) {
@@ -46,9 +69,41 @@ const RegisterUser = asynchandler(async (req,res)=>{
     if(!createUser){
         throw new Apierror(500, "Failed to create user");
     }
+    console.log("user created");
     return res.status(200).json(new Apiresponce(200,createUser,"user registration done"));
   
 })
 
 
-export {RegisterUser}
+const loginUser = asynchandler(async (req,res)=>{
+    const {email, password} = req.body;
+    if (!email) {
+        throw new Apierror(400, "All fields are required");
+    }
+    const user = await User.findOne( {email})
+
+    if(!user){
+        throw new Apierror(401, "Invalid credentials");
+    }
+
+    const isPasswordCorrect = await user.isPasswordCorrect(password)
+    if (!isPasswordCorrect) {
+        throw new Apierror(401, "Invalid user credentials");
+    }
+    const {accessToken, refreshToken} = await GenerateAccessAndRefreshTokens(user._id)
+    const loggedUser = await User.findById(user._id).select("-password -refreshToken")
+    const option = {
+        httpOnly: true,
+        sameSite: "None",
+        secure : "true",
+        expires: new Date(Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000)
+    }
+ console.log(loggedUser,"Login Done");
+
+ return res.status(200)
+ .cookie("accessToken", accessToken, option)
+ .cookie("refreshToken", refreshToken,option)
+ .json(new Apiresponce(200,{user : loggedUser},"User logged in successfully"));
+})
+
+export {RegisterUser,loginUser}
