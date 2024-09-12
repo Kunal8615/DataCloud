@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
-const dataSchema = new mongoose.schema({
+const dataSchema = new mongoose.Schema({
     dataFile: {
-        type:String,
+        type: String,
         required: true
     },
-    title:{
+    title :{
         type: String,
         required: true
     },
