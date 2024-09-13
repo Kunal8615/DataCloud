@@ -74,6 +74,28 @@ const RegisterUser = asynchandler(async (req,res)=>{
   
 })
 
+const logoutUser = asynchandler(async (req, res) => {
+    try {
+      await User.findByIdAndUpdate(req.user._id, {
+        $unset: {
+          refreshToken: 1
+        }
+      }, {
+        new: true
+      });
+      const options = {
+        httpOnly: true,
+        secure: true
+      };
+ 
+  console.log("user logout done");
+      return res.status(200)
+        .clearCookie("accessToken", options).clearCookie("refreshToken", options)
+        .json(new Apiresponce(200, {}, "User logged out"));
+    } catch (error) {
+      return res.status(500).json(new Apiresponce(500, {}, "An error occurred during logout"));
+    }
+  });
 
 const loginUser = asynchandler(async (req,res)=>{
     const {email, password} = req.body;
@@ -108,4 +130,4 @@ const loginUser = asynchandler(async (req,res)=>{
  .json(new Apiresponce(200,{user : loggedUser},"User logged in successfully"));
 })
 
-export {RegisterUser,loginUser}
+export {RegisterUser,loginUser,logoutUser}

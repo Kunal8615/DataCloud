@@ -9,7 +9,7 @@ import { uploadonCloundinary } from "../utils/cloudinary.js";
 
 const CreateData = asynchandler(async (req, res) => {
 
-    console.log(req.body);
+  //  console.log(req.body);
    
     const { title } = req.body;
     if(!title) {
@@ -26,7 +26,7 @@ const CreateData = asynchandler(async (req, res) => {
     if (!dataUpload) {
         throw new Apierror(500, "failed to upload on cloudnairy")
     }
-    console.log(req.user?._id);
+ //   console.log(req.user?._id);
     const user = await User.findById(req.user?._id);
     if (!user) {
         throw new Apierror(404, "User not found")
@@ -52,6 +52,8 @@ const CreateData = asynchandler(async (req, res) => {
     )
 
 });
+
+
 
 const GetUserData = asynchandler(async (req, res) => {
     try {

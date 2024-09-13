@@ -21,11 +21,11 @@ const Verifyjwt = asynchandler(async (req, _, next) => {
 
         // Verify token
         decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-        console.log("Decoded token:", decodedToken); // Check if token is decoded
+    //    console.log("Decoded token:", decodedToken); // Check if token is decoded
 
         // Find the user based on the decoded token
         const user = await User.findById(decodedToken._id).select("-password -refreshToken");
-        console.log("User found:", user); // Check if user is found
+      //  console.log("User found:", user); // Check if user is found
 
         if (!user) {
             throw new Apierror(401, "User not found");
