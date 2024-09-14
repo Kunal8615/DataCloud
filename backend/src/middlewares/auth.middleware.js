@@ -10,7 +10,7 @@ const Verifyjwt = asynchandler(async (req, _, next) => {
     try {
         // Extract token from cookies or Authorization header
         token = req.cookies?.accessToken || req.headers.authorization?.replace("Bearer ", "");
-        console.log("Extracted token:", token); // Check if token is received
+     //   console.log("Extracted token:", token); 
 
         if (!token) {
             throw new Apierror(401, "Access Denied. Please Login");
@@ -33,7 +33,7 @@ const Verifyjwt = asynchandler(async (req, _, next) => {
 
         // Attach user to the request object
         req.user = user;
-        console.log("req.user:", req.user); // Check if user is attached to req
+   //     console.log("req.user:", req.user); // Check if user is attached to req
 
         next();
     } catch (error) {

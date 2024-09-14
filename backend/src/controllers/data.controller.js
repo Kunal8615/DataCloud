@@ -9,14 +9,14 @@ import { uploadonCloundinary } from "../utils/cloudinary.js";
 
 const CreateData = asynchandler(async (req, res) => {
 
-  //  console.log(req.body);
-   
+    //  console.log(req.body);
+
     const { title } = req.body;
-    if(!title) {
+    if (!title) {
         throw new Apierror(500, "title requried")
     }
     const data = req.files?.dataFile;
-    if(!data) {
+    if (!data) {
         throw new Apierror(500, "file required")
     }
 
@@ -26,7 +26,7 @@ const CreateData = asynchandler(async (req, res) => {
     if (!dataUpload) {
         throw new Apierror(500, "failed to upload on cloudnairy")
     }
- //   console.log(req.user?._id);
+    //   console.log(req.user?._id);
     const user = await User.findById(req.user?._id);
     if (!user) {
         throw new Apierror(404, "User not found")
@@ -57,7 +57,20 @@ const CreateData = asynchandler(async (req, res) => {
 
 const GetUserData = asynchandler(async (req, res) => {
     try {
+        const user = req.user;
+        if (!user) {
+            throw new Apierror(404, "User not found")
+        }
 
+        const data = await Data.find({ owner: user._id }).select("-owner")
+        if (!data) {
+            throw new Apierror(404, "No data found")
+        }
+
+        //console.log(data); for debugging purposes
+        return res.status(200).json(
+            new Apiresponce(200, data, "Data fetched successfully")
+        )
     } catch (error) {
         return res.status(500)
             .json(new Apiresponce(500, {}, "error occured in GetUserData"));
