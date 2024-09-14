@@ -53,6 +53,31 @@ const CreateData = asynchandler(async (req, res) => {
 
 });
 
+const GetRecentData = asynchandler(async (req, res) => {
+    try {
+        const data = await Data.aggregate([
+            {
+                $match: {
+                    owner: req.user._id
+                }
+            },
+            {
+                $sort: {
+                    createdAt: -1 
+                }
+            },
+            {
+                $limit: 2
+            }
+        ]);
+        console.log(data);
+
+       return res.status(200).json(new Apiresponce(200,data,"latest data fetched")); // Send the response with the aggregated data
+    } catch (error) {
+        throw new Apierror(500, "Failed to fetch recent data");
+    }
+});
+
 
 
 const GetUserData = asynchandler(async (req, res) => {
@@ -76,7 +101,6 @@ const GetUserData = asynchandler(async (req, res) => {
             .json(new Apiresponce(500, {}, "error occured in GetUserData"));
     }
 
-
 })
 
-export { CreateData, GetUserData }
+export { CreateData, GetUserData,GetRecentData }

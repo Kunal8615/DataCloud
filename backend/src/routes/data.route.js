@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { CreateData,GetUserData } from "../controllers/data.controller.js";
+import { CreateData,GetUserData ,GetRecentData} from "../controllers/data.controller.js";
 import Verifyjwt from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
 
@@ -13,5 +13,6 @@ router.route("/upload").post(upload.fields([
 ]),CreateData);
 
 router.route("/getuserData").get(GetUserData);
+router.route("/GetRecentData").get(GetRecentData)
 
 export default router;
