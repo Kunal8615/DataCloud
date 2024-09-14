@@ -70,7 +70,7 @@ const GetRecentData = asynchandler(async (req, res) => {
                 $limit: 2
             }
         ]);
-        console.log(data);
+     //   console.log(data);
 
        return res.status(200).json(new Apiresponce(200,data,"latest data fetched")); // Send the response with the aggregated data
     } catch (error) {
