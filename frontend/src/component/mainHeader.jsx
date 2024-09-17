@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
-import { API_URL } from '../../constant';
+import { API_URL } from '../constant';
+
 
 const MainHeader = () => {
   const [profileImage, setProfileImage] = useState('');
@@ -14,14 +15,14 @@ const MainHeader = () => {
   useEffect(() => {
     const fetchProfileImage = async () => {
       try {
-        const response = await fetch(`${API_URL}/users/current-user`, {
+        const response = await fetch(`${API_URL}/user/GetCurrentUser`, {
           credentials: 'include',
         });
         if (!response.ok) {
           throw new Error('Failed to fetch profile image');
         }
         const data = await response.json();
-        setProfileImage(data.data.avatar);
+        setProfileImage(data.data.profilePicture);
       } catch (error) {
         console.error('Error fetching profile image:', error);
         setError('Error fetching profile image');
@@ -36,7 +37,7 @@ const MainHeader = () => {
     setIsSigningOut(true); // Show loading indicator
 
     try {
-      const response = await fetch(`${API_URL}/users/logout`, {
+      const response = await fetch(`${API_URL}/user/logout`, {
         method: 'POST',
         credentials: 'include',
       });
@@ -46,7 +47,7 @@ const MainHeader = () => {
 
       
       setTimeout(() => {
-        navigate('/login');
+        navigate('/');
       }, 1000); 
     } catch (error) {
       console.error('Error signing out:', error);
@@ -117,12 +118,12 @@ const MainHeader = () => {
             <ul className="flex flex-col mt-4 lg:flex-row lg:space-x-8 lg:mt-0">
               <li>
                 <NavLink
-                  to="/profile"
+                  to="file"
                   className={({ isActive }) =>
                     `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} lg:border-0 hover:text-orange-700`
                   }
                 >
-                  Profile
+                  Your File
                 </NavLink>
               </li>
               <li>
@@ -132,7 +133,7 @@ const MainHeader = () => {
                     `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} lg:border-0 hover:text-orange-700`
                   }
                 >
-                  Tweet
+                  Recent 
                 </NavLink>
               </li>
               <li>
@@ -142,40 +143,10 @@ const MainHeader = () => {
                     `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} lg:border-0 hover:text-orange-700`
                   }
                 >
-                  Videos
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/likedvideos"
-                  className={({ isActive }) =>
-                    `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} lg:border-0 hover:text-orange-700`
-                  }
-                >
-                  Liked Videos
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/uploadvideo"
-                  className={({ isActive }) =>
-                    `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} lg:border-0 hover:text-orange-700`
-                  }
-                >
                   Upload
                 </NavLink>
               </li>
-
-              <li>
-                <NavLink
-                  to="/playlist"
-                  className={({ isActive }) =>
-                    `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} lg:border-0 hover:text-orange-700`
-                  }
-                >
-                  Playlist
-                </NavLink>
-              </li>
+         
             </ul>
           </div>
         </div>

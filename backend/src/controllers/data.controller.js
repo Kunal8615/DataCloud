@@ -80,6 +80,10 @@ const GetRecentData = asynchandler(async (req, res) => {
 
 
 
+
+
+
+
 const GetUserData = asynchandler(async (req, res) => {
     try {
         const user = req.user;
@@ -103,4 +107,4 @@ const GetUserData = asynchandler(async (req, res) => {
 
 })
 
-export { CreateData, GetUserData,GetRecentData }
+export { CreateData, GetUserData,GetRecentData, }

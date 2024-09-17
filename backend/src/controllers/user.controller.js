@@ -130,4 +130,25 @@ const loginUser = asynchandler(async (req,res)=>{
  .json(new Apiresponce(200,{user : loggedUser},"User logged in successfully"));
 })
 
-export {RegisterUser,loginUser,logoutUser}
+const GetCurrentUser = asynchandler(async (req, res, next) => {
+    const user = req.user;
+    if (!user) {
+        return next(new Apierror(404, "User not found"));
+    }
+
+  
+    const userData = await User.findById(user._id).select("-password");
+
+
+    if (!userData) {
+        return next(new Apierror(404, "User not found"));
+    }
+
+    return res.status(200).json(
+        new Apiresponce(200, userData, "User fetched successfully")
+    );
+});
+
+
+
+export {RegisterUser,loginUser,logoutUser,GetCurrentUser}
