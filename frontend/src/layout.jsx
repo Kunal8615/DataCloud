@@ -10,7 +10,6 @@ function Layout() {
 
       <MainHeader/>
       <Outlet/>
-    {console.log("ara hau kuch")}
       </div>
       
     </>

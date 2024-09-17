@@ -118,7 +118,7 @@ const MainHeader = () => {
             <ul className="flex flex-col mt-4 lg:flex-row lg:space-x-8 lg:mt-0">
               <li>
                 <NavLink
-                  to="file"
+                  to=""
                   className={({ isActive }) =>
                     `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} lg:border-0 hover:text-orange-700`
                   }
@@ -128,7 +128,7 @@ const MainHeader = () => {
               </li>
               <li>
                 <NavLink
-                  to="/tweet"
+                  to="recent"
                   className={({ isActive }) =>
                     `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} lg:border-0 hover:text-orange-700`
                   }

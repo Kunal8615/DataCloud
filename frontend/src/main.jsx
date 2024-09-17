@@ -1,8 +1,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
+
 import File from './pages/File.jsx'
 import './index.css'
+import Recent from './pages/Recent.jsx'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login.jsx'
 import Layout from './layout.jsx';
@@ -17,9 +18,14 @@ const route = createBrowserRouter([
     element: <Layout />,
     children : [
       {
-        path : "file",
+        path : "",
         element : <File/>
+      },
+      {
+        path: "recent",
+        element : <Recent/>
       }
+      
       
     ]
   }

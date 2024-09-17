@@ -66,7 +66,7 @@ const File = () => {
         {files.map((file) => (
           <div 
             key={file._id} 
-            className="bg-white shadow-md rounded-lg p-6 text-center cursor-pointer"
+            className="bg-white border-4  shadow-md rounded-lg p-6 text-center cursor-pointer"
             onClick={() => window.open(file.dataFile, '_blank')} // Open file in new tab
           >
             {/* Preview of the file */}
