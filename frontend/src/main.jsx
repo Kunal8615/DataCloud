@@ -8,6 +8,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login.jsx'
 import Layout from './layout.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
+import UploadForm from './pages/Upload.jsx'
+
 const route = createBrowserRouter([
   {
     path: '/',
@@ -24,6 +27,9 @@ const route = createBrowserRouter([
       {
         path: "recent",
         element : <Recent/>
+      },{
+        path: "upload",
+        element : <UploadForm/>
       }
       
       

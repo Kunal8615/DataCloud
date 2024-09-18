@@ -25,7 +25,6 @@ const Recent = () => {
     fetchData();
   }, []);
 
-
   const handleDownload = (fileUrl) => {
     const link = document.createElement('a'); 
     link.href = fileUrl;  
@@ -35,16 +34,12 @@ const Recent = () => {
     link.remove();  
   };
 
- 
   const getFilePreview = (fileUrl) => {
     if (fileUrl.endsWith('.docx') || fileUrl.endsWith('.doc')) {
-  
       return `https://docs.google.com/gview?url=${fileUrl}&embedded=true`;
     } else if (fileUrl.endsWith('.pdf')) {
-   
       return fileUrl;
     } else if (fileUrl.endsWith('.jpg') || fileUrl.endsWith('.png') || fileUrl.endsWith('.jpeg')) {
-      
       return fileUrl;
     } else {
       return `${fileUrl}`;
@@ -52,7 +47,7 @@ const Recent = () => {
   };
 
   if (loading) {
-    return <div className="text-center text-lg font-semibold">Loading...</div>;
+    return <div className="text-center text-lg font-semibold text-white">Loading...</div>;
   }
 
   if (error) {
@@ -60,13 +55,13 @@ const Recent = () => {
   }
 
   return (
-    <div className="container mx-auto py-8">
-      <h2 className="text-2xl font-bold text-center mb-8">Recent Files</h2>
+    <div className=" p-4 mx-auto py-8 bg-gray-900 text-white min-h-screen">
+      <h2 className="text-2xl font-bold text-center mb-8 text-gray-200">Recent Files</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {files.map((file) => (
           <div 
             key={file._id} 
-            className="bg-white shadow-md rounded-lg p-6 text-center cursor-pointer"
+            className="bg-gray-800 border-gray-700 border-4 shadow-md rounded-lg p-6 text-center cursor-pointer hover:bg-gray-700 transition duration-300"
             onClick={() => window.open(file.dataFile, '_blank')} // Open file in new tab
           >
             {/* Preview of the file */}
@@ -75,7 +70,7 @@ const Recent = () => {
                 src={getFilePreview(file.dataFile)} 
                 title={file.title} 
                 className="w-full h-40 object-cover mb-4 rounded-md" 
-              
+                frameBorder="0"
               ></iframe>
             ) : (
               <img 
@@ -85,7 +80,7 @@ const Recent = () => {
               />
             )}
 
-            <div className="text-lg font-semibold mb-2">{file.title}</div>
+            <div className="text-lg font-semibold mb-2 text-gray-200">{file.title}</div>
 
             {/* Programmatic Download Button */}
             <button 

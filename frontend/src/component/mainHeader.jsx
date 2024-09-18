@@ -120,7 +120,7 @@ const MainHeader = () => {
                 <NavLink
                   to=""
                   className={({ isActive }) =>
-                    `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} lg:border-0 hover:text-orange-700`
+                    `block py-2 px-4 ${isActive ? 'text-green-400' : 'text-white'} lg:border-0 hover:text-orange-700`
                   }
                 >
                   Your File
@@ -130,7 +130,7 @@ const MainHeader = () => {
                 <NavLink
                   to="recent"
                   className={({ isActive }) =>
-                    `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} lg:border-0 hover:text-orange-700`
+                    `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} lg:border-0 hover:text-orange-400`
                   }
                 >
                   Recent 
@@ -138,9 +138,9 @@ const MainHeader = () => {
               </li>
               <li>
                 <NavLink
-                  to="/videolist"
+                  to="upload"
                   className={({ isActive }) =>
-                    `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} lg:border-0 hover:text-orange-700`
+                    `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} lg:border-0 hover:text-orange-400`
                   }
                 >
                   Upload
