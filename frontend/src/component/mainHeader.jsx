@@ -67,7 +67,7 @@ const MainHeader = () => {
       <nav className="px-4 lg:px-6 py-2.5">
         <div className="flex flex-wrap items-center justify-between mx-auto max-w-screen-xl">
           
-          <p className='text-yellow-300 text-2xl font-bold hover:text-orange-500 '>TubeTweet 🪬</p>
+          <p className='text-yellow-300 text-2xl font-bold hover:text-orange-500 '>DataCloud ♾</p>
           <div className="flex items-center lg:order-2">
             <button
               onClick={handleSignOut}
