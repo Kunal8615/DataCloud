@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { API_URL } from '../constant';
+import bgupload from "../images/bgupload.jpg";
 
 const UploadForm = () => {
   const [title, setTitle] = useState('');
@@ -22,7 +23,7 @@ const UploadForm = () => {
       const response = await fetch(`${API_URL}/data/upload`, {
         method: 'POST',
         body: formData,
-        credentials : "include"
+        credentials: "include"
       });
 
       if (response.ok) {
@@ -39,7 +40,17 @@ const UploadForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+    <div 
+      className="min-h-screen max-w-full flex items-center justify-center bg-gray-100 dark:bg-gray-900" 
+      style={{ 
+        backgroundImage: `url(${bgupload})`,
+        backgroundSize: 'contain', // or 'cover' based on your preference
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        width: '100%',
+        height: '100vh', // Full viewport height
+      }}
+    >
       <form
         onSubmit={handleSubmit}
         className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 max-w-md w-full"

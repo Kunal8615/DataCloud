@@ -10,11 +10,16 @@ import Layout from './layout.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import UploadForm from './pages/Upload.jsx'
+import SignUp from './pages/SignUp.jsx'
 
 const route = createBrowserRouter([
   {
     path: '/',
     element: <Login />,
+  },
+  {
+    path : "/signup",
+    element: <SignUp />,
   },
   {
     path: '/layout',

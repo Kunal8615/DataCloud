@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-
 import { API_URL } from '../constant';
-
 
 const MainHeader = () => {
   const [profileImage, setProfileImage] = useState('');
   const [error, setError] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSigningOut, setIsSigningOut] = useState(false); // New state for loading indicator
+  const [isSigningOut, setIsSigningOut] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,7 +32,7 @@ const MainHeader = () => {
 
   // Handle sign-out
   const handleSignOut = async () => {
-    setIsSigningOut(true); // Show loading indicator
+    setIsSigningOut(true);
 
     try {
       const response = await fetch(`${API_URL}/user/logout`, {
@@ -44,16 +42,14 @@ const MainHeader = () => {
       if (!response.ok) {
         throw new Error('Failed to sign out');
       }
-
-      
       setTimeout(() => {
         navigate('/');
-      }, 1000); 
+      }, 1000);
     } catch (error) {
       console.error('Error signing out:', error);
       setError('Error signing out');
     } finally {
-      setIsSigningOut(false); 
+      setIsSigningOut(false);
     }
   };
 
@@ -63,64 +59,58 @@ const MainHeader = () => {
   };
 
   return (
-    <header className="shadow sticky z-50 top-0 bg-slate-800 border-b-4 border-red-500">
-      <nav className="px-4 lg:px-6 py-2.5">
-        <div className="flex flex-wrap items-center justify-between mx-auto max-w-screen-xl">
-          
-          <p className='text-yellow-300 text-2xl font-bold hover:text-orange-500 '>DataCloud ♾</p>
-          <div className="flex items-center lg:order-2">
-            <button
-              onClick={handleSignOut}
-              className="text-white hover:text-orange-400 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5"
-              disabled={isSigningOut} 
-            >
-              {isSigningOut ? 'Signing Out...' : 'Signout'}
-            </button>
-            {profileImage && (
-              <div className="relative ml-4">
-                <img
-                  src={profileImage}
-                  alt="Profile"
-                  className="w-12 h-12 rounded-full border-2 border-white"
-                />
-              </div>
-            )}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={toggleMobileMenu}
-            className="inline-flex items-center p-2 text-sm text-white rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-            type="button"
+    <div className="flex  ">
+      {/* Mobile Menu Button */}
+      <div className="lg:hidden p-4 fixed z-20 ">
+        <button
+          onClick={toggleMobileMenu}
+          className="text-white hover:text-orange-500 focus:outline-none"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-8 w-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
           >
-            <svg
-              className="w-6 h-6"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 1h15M1 7h15M1 13h15"
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d={isMobileMenuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16m-7 6h7'}
+            />
+          </svg>
+        </button>
+      </div>
+
+      {/* Sidebar (Vertical Navigation) */}
+      <aside
+        className={`${
+          isMobileMenuOpen ? 'block' : 'hidden'
+        } lg:block lg:w-64 w-64 h-screen border-r-4 border-yellow-500 bg-slate-800 text-white fixed z-10 transition-all ease-in-out duration-300`}
+      >
+        <div className="flex flex-col items-center py-4">
+          <p className="text-yellow-300 text-2xl font-bold hover:text-orange-500 mb-6">DataCloud ♾</p>
+
+          {/* Profile Picture */}
+          {profileImage && (
+            <div className="relative mb-4">
+              <img
+                src={profileImage}
+                alt="Profile"
+                className="w-16 h-16 rounded-full border-2 border-white"
               />
-            </svg>
-          </button>
+            </div>
+          )}
 
           {/* Navigation Links */}
-          <div
-            className={`lg:flex font-bold lg:w-auto lg:order-1 ${isMobileMenuOpen ? 'block' : 'hidden'}`}
-            id="mobile-menu-2"
-          >
-            <ul className="flex flex-col mt-4 lg:flex-row lg:space-x-8 lg:mt-0">
+          <nav className="w-full px-4">
+            <ul className="space-y-4 font-bold">
               <li>
                 <NavLink
                   to=""
                   className={({ isActive }) =>
-                    `block py-2 px-4 ${isActive ? 'text-green-400' : 'text-white'} lg:border-0 hover:text-orange-700`
+                    `block py-2 px-4 ${isActive ? 'text-green-400' : 'text-white'} hover:text-orange-700`
                   }
                 >
                   Your File
@@ -130,28 +120,48 @@ const MainHeader = () => {
                 <NavLink
                   to="recent"
                   className={({ isActive }) =>
-                    `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} lg:border-0 hover:text-orange-400`
+                    `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} hover:text-orange-400`
                   }
                 >
-                  Recent 
+                  Recent
                 </NavLink>
               </li>
               <li>
                 <NavLink
                   to="upload"
                   className={({ isActive }) =>
-                    `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} lg:border-0 hover:text-orange-400`
+                    `block py-2 px-4 ${isActive ? 'text-orange-400' : 'text-white'} hover:text-orange-400`
                   }
                 >
                   Upload
                 </NavLink>
               </li>
-         
             </ul>
-          </div>
+          </nav>
         </div>
-      </nav>
-    </header>
+
+        {/* Sign-out Button */}
+        <div className="mt-auto pb-4 px-4">
+          <button
+            onClick={handleSignOut}
+            className="w-full text-white hover:text-orange-400 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2"
+            disabled={isSigningOut}
+          >
+            {isSigningOut ? 'Signing Out...' : 'Signout'}
+          </button>
+        </div>
+      </aside>
+
+      {/* Main Content (example for responsive) */}
+      <div
+        className={`w-full lg:ml-48  -600 ml-0 p-6 transition-all ease-in-out duration-300 ${
+          isMobileMenuOpen ? 'opacity-50 pointer-events-none' : 'opacity-100'
+        }`}
+      >
+        {/* Your Main Content Here */}
+     
+      </div>
+    </div>
   );
 };
 

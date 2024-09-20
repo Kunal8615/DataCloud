@@ -79,10 +79,27 @@ const GetRecentData = asynchandler(async (req, res) => {
 });
 
 
+const Deletefile = asynchandler(async(req,res)=>{
+    try {
+        const {fileId} = req.params
+        if(!isValidObjectId(fileId)){
+            throw new Apierror(400, "Invalid file id");
+        }
 
+        const data = await Data.findById(fileId);
+        if(!data){
+            throw new Apierror(404, "No data found with this id");
+        }
+        const deleteFile  = await Data.findByIdAndDelete(fileId);
+        if(!deleteFile){
+            throw new Apierror(404, "No data found with this id");
+        }
+        return res.status(200).json(new Apiresponce(200, {}, "File deleted successfully"));
 
-
-
+    } catch (error) {
+        return res.status(500).json(new Apiresponce(500, {}, "Error deleting file"))
+    }
+})
 
 const GetUserData = asynchandler(async (req, res) => {
     try {
@@ -107,4 +124,4 @@ const GetUserData = asynchandler(async (req, res) => {
 
 })
 
-export { CreateData, GetUserData,GetRecentData, }
+export { CreateData, GetUserData,GetRecentData,Deletefile }

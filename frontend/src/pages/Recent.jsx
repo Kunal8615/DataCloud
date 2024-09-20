@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API_URL } from '../constant';
+import bgupload from '../images/bgupload.jpg';
 
 const Recent = () => {
   const [files, setFiles] = useState([]);
@@ -55,8 +56,16 @@ const Recent = () => {
   }
 
   return (
-    <div className=" p-4 mx-auto py-8 bg-gray-900 text-white min-h-screen">
-      <h2 className="text-2xl font-bold text-center mb-8 text-gray-200">Recent Files</h2>
+    <div className=" p-4 lg:pl-6 mx-auto py-8 bg-gray-900 text-white min-h-screen  "   style={{ 
+      backgroundImage: `url(${bgupload})`,
+      backgroundSize: 'contain ', // or 'cover' based on your preference
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      width: '100%',
+      height: '100vh', // Full viewport height
+      padding : "20px"
+    }} >
+      <h2 className="text-2xl font-bold text-center mb-8 text-black">Recent Files</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {files.map((file) => (
           <div 
@@ -69,14 +78,14 @@ const Recent = () => {
               <iframe 
                 src={getFilePreview(file.dataFile)} 
                 title={file.title} 
-                className="w-full h-40 object-cover mb-4 rounded-md" 
+                className="w-72 h-40 object-cover mb-4 rounded-md" 
                 frameBorder="0"
               ></iframe>
             ) : (
               <img 
                 src={getFilePreview(file.dataFile)} 
                 alt="File preview" 
-                className="w-full h-40 object-cover mb-4 rounded-md" 
+                className="w-full border-2 border-white h-40 object-cover mb-4 rounded-md" 
               />
             )}
 
