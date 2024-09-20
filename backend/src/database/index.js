@@ -1,8 +1,9 @@
-
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';  // Add this import for dotenv
 import { DB_NAME } from '../constant.js';
 
-dotenv.config();
+dotenv.config();  // Ensure dotenv is configured
+
 const connectDB = async () => {
     try {
         const connectionInstance = await mongoose.connect(
@@ -13,8 +14,9 @@ const connectDB = async () => {
         console.log(`\n DataCloud MONGOOSE-DATABASE Connected || db host:
              ${connectionInstance.connection.host}`);
     } catch (error) {
-        console.log('error in mongodb index js', error);
+        console.log('Error in MongoDB connection', error);
         process.exit(1);
     }
 };
+
 export default connectDB;

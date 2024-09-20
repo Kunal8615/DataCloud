@@ -2,7 +2,7 @@ import User from "../models/user.model.js";
 import Data from "../models/data.model.js";
 import { asynchandler } from "../utils/Asynchander.js";
 import { Apierror } from "../utils/Apierror.js";
-import mongoose from "mongoose";
+
 import { Apiresponce } from "../utils/Apiresponce.js";
 import { isValidObjectId } from "mongoose";
 import { uploadonCloundinary } from "../utils/cloudinary.js";
