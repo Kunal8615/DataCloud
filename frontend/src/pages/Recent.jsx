@@ -78,8 +78,8 @@ const Recent = () => {
               <iframe 
                 src={getFilePreview(file.dataFile)} 
                 title={file.title} 
-                className="w-72 h-40 object-cover mb-4 rounded-md" 
-                frameBorder="0"
+                className="min-w-52 h-40 object-cover mb-4 rounded-md" 
+               
               ></iframe>
             ) : (
               <img 
