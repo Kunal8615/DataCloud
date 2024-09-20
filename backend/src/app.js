@@ -6,7 +6,7 @@ const app = express()
 
 app.use(cors({
     origin: ["http://localhost:5173",
-        "https://frontend-kappa-five-10.vercel.app/",
+
        
     ],
     credentials: true
