@@ -1,11 +1,11 @@
-import React from 'react'
+
 import User from "../models/user.model.js"
 import {Apierror} from "../utils/Apierror.js"
 import { asynchandler } from "../utils/Asynchander.js";
 import { uploadonCloundinary } from "../utils/cloudinary.js";
 import { Apiresponce } from "../utils/Apiresponce.js";
 import jwt, { decode } from "jsonwebtoken"
-import mongoose, { mongo } from "mongoose";
+
 
 
 
