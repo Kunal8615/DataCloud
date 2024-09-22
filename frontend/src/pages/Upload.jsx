@@ -40,17 +40,15 @@ const UploadForm = () => {
   };
 
   return (
-    <div 
-      className="min-h-screen max-w-full flex items-center justify-center bg-gray-100 dark:bg-gray-900" 
-      style={{ 
-        backgroundImage: `url(${bgupload})`,
-        backgroundSize: 'contain', // or 'cover' based on your preference
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        width: '100%',
-        height: '100vh', // Full viewport height
-      }}
-    >
+       <div className="p-4 bg-gray-900 text-white min-h-screen" style={{ 
+      backgroundImage: `url(${bgupload})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'repeat',
+      width: '100%',
+      height: '100%',
+      padding: "20px" 
+    }}>
       <form
         onSubmit={handleSubmit}
         className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 max-w-md w-full"
