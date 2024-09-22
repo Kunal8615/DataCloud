@@ -56,15 +56,15 @@ const Recent = () => {
   }
 
   return (
-    <div className=" p-4 lg:pl-6 mx-auto py-8 bg-gray-900 text-white min-h-screen  "   style={{ 
+        <div className="p-4 bg-gray-900 text-white min-h-screen" style={{ 
       backgroundImage: `url(${bgupload})`,
-      backgroundSize: 'contain ', // or 'cover' based on your preference
+      backgroundSize: 'cover',
       backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
+      backgroundRepeat: 'repeat',
       width: '100%',
-      height: '100vh', // Full viewport height
-      padding : "20px"
-    }} >
+      height: '100%',
+      padding: "20px" 
+    }}>
       <h2 className="text-2xl font-bold text-center mb-8 text-black">Recent Files</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {files.map((file) => (
