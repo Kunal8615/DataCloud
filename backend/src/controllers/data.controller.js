@@ -124,4 +124,26 @@ const GetUserData = asynchandler(async (req, res) => {
 
 })
 
-export { CreateData, GetUserData, GetRecentData, Deletefile }
+const SearchData = asynchandler(async (req,res)=>{
+    try {
+        const {searchQuery} = req.query;
+        if(!searchQuery){
+            throw new Apierror(400,"Search query is required");
+        }
+        const data = await Data.find({title: {$regex: searchQuery, $options: 'i'}}).select("-owner");
+        if(!data){
+            throw new Apierror(404,"No data found matching the search query");
+        }
+        return res.status(200).json(
+            new Apiresponce(200,data,"Data fetched successfully")
+        )
+
+
+    } catch (error) {
+        return res.status(500)
+           .json(new Apiresponce(500,{},"error occured in SearchData"));
+    }
+
+})
+
+export { CreateData, GetUserData, GetRecentData, Deletefile ,SearchData}
