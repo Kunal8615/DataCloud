@@ -13,7 +13,7 @@ const UploadForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+ // Add additional validation or error handling here if needed
     const formData = new FormData();
     formData.append('title', title);
     formData.append('dataFile', dataFile);
