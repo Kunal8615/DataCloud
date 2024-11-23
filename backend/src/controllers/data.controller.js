@@ -108,7 +108,10 @@ const GetUserData = asynchandler(async (req, res) => {
             throw new Apierror(404, "User not found")
         }
 
-        const data = await Data.find({ owner: user._id }).select("-owner")
+        const data = await Data.find( {
+            owner: req.user._id, 
+            title: { $regex: searchQuery, $options: 'i' } 
+          }).select("-owner")
         if (!data) {
             throw new Apierror(404, "No data found")
         }
@@ -130,7 +133,7 @@ const SearchData = asynchandler(async (req,res)=>{
         if(!searchQuery){
             throw new Apierror(400,"Search query is required");
         }
-        const data = await Data.find({title: {$regex: searchQuery, $options: 'i'}}).select("-owner");
+        const data = await Data.find({owner:req.user._id},{title: {$regex: searchQuery, $options: 'i'}}).select("-owner");
         if(!data){
             throw new Apierror(404,"No data found matching the search query");
         }
