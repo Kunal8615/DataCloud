@@ -104,19 +104,17 @@ const Deletefile = asynchandler(async (req, res) => {
 const GetUserData = asynchandler(async (req, res) => {
     try {
         const user = req.user;
+        console.log(user);
         if (!user) {
             throw new Apierror(404, "User not found")
         }
 
-        const data = await Data.find( {
-            owner: req.user._id, 
-            title: { $regex: searchQuery, $options: 'i' } 
-          }).select("-owner")
+        const data = await Data.find({ owner: user._id }).select("-owner")
         if (!data) {
             throw new Apierror(404, "No data found")
         }
 
-        //console.log(data); for debugging purposes
+        console.log(data);
         return res.status(200).json(
             new Apiresponce(200, data, "Data fetched successfully")
         )
@@ -133,7 +131,7 @@ const SearchData = asynchandler(async (req,res)=>{
         if(!searchQuery){
             throw new Apierror(400,"Search query is required");
         }
-        const data = await Data.find({owner:req.user._id},{title: {$regex: searchQuery, $options: 'i'}}).select("-owner");
+        const data = await Data.find({title: {$regex: searchQuery, $options: 'i'}}).select("-owner");
         if(!data){
             throw new Apierror(404,"No data found matching the search query");
         }

@@ -13,7 +13,7 @@ const File = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${API_URL}/data/getuserData`, {
-          withCredentials: true,  // Include credentials (like cookies or auth tokens)
+          withCredentials: true,  
         });
         setFiles(response.data.data);
         setLoading(false);
