@@ -6,6 +6,7 @@ import './index.css'
 import Recent from './pages/Recent.jsx'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login.jsx'
+import Search from './pages/Search.jsx'
 import Layout from './layout.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
@@ -35,9 +36,13 @@ const route = createBrowserRouter([
       },{
         path: "upload",
         element : <UploadForm/>
+      },
+      {
+        path: "search",
+        element : <Search/>
       }
       
-      
+  
     ]
   }
 ])
